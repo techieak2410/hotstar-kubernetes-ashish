@@ -34,7 +34,7 @@ pipeline {
                         -Dsonar.projectKey=Hotstar \
                         -Dsonar.projectName=Hotstar \
                         -Dsonar.sources=. \
-                        -Dsonar.login=${SONAR_AUTH_TOKEN}
+                        -Dsonar.token=${SONAR_AUTH_TOKEN}
                     """
                 }
             }
