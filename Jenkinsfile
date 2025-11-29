@@ -7,8 +7,8 @@ pipeline {
     }
 
     environment {
-        SCANNER_HOME = tool 'SonaQube Scanner'
-        SONAR_AUTH_TOKEN = credentials('token')
+        SCANNER_HOME = tool 'SonarQube Scanner'
+        SONAR_AUTH_TOKEN = credentials('sonar-token')
     }
 
     stages {
@@ -43,7 +43,7 @@ pipeline {
         stage("Quality Gate") {
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'token'
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
                 }
             }
         }
