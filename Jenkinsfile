@@ -22,7 +22,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/Aseemakram19/hotstar-kubernetes.git'
+                    url: 'https://github.com/techieak2410/hotstar-kubernetes-ashish.git'
             }
         }
 
@@ -43,7 +43,7 @@ pipeline {
         stage("Quality Gate") {
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token'
+                    waitForQualityGate abortPipeline: false, credentialsId: 'token'
                 }
             }
         }
@@ -72,8 +72,8 @@ pipeline {
                 script {
                     withDockerRegistry([credentialsId: 'docker']) {
                         sh "docker build -t hotstar ."
-                        sh "docker tag hotstar aseemakram19/hotstar:latest"
-                        sh "docker push aseemakram19/hotstar:latest"
+                        sh "docker tag hotstar AshishG/hotstar:latest"
+                        sh "docker push AshishG/hotstar:latest"
                     }
                 }
             }
@@ -81,7 +81,7 @@ pipeline {
 
         stage('TRIVY Image Scan') {
             steps {
-                sh "trivy image aseemakram19/hotstar:latest > trivyimage.txt"
+                sh "trivy image AshishG/hotstar:latest > trivyimage.txt"
             }
         }
 
@@ -89,7 +89,7 @@ pipeline {
             steps {
                 sh """
                     docker rm -f hotstar || true
-                    docker run -d --name hotstar -p 3000:3000 aseemakram19/hotstar:latest
+                    docker run -d --name hotstar -p 3000:3000 AshishG/hotstar:latest
                 """
             }
         }
